@@ -1,0 +1,54 @@
+{% extends "book_shop_app/base.html" %}
+{% load staticfiles %}
+
+{% block header %}{% endblock header %}
+{% block content %}
+{% load widget_tweaks %}
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-9">
+
+                <div class="thumbnail">
+                    <br>
+                    <img class="img-responsive" src="http://127.0.0.1:8000/{{ book.image }}" alt=""
+                         style="width:250px; height:250px;">
+                    <div class="caption-full">
+                        <h4 class="pull-right">{{book.price}} RUB</h4>
+                        <h4><a href="/book/{{book.id}}">{{book.name}}</a>
+                        </h4>
+                        <p><strong> Жанр: </strong> {{book.get_subject_display}}</p>
+                        <p><strong> Автор: </strong> {{book.author}}</p>
+                        <p><strong> Издательство: </strong> {{book.publishing_house}}</p>
+                        <p><strong> Год: </strong> {{book.year}} </p>
+                        <p><strong> Доступное количество: </strong> {{book.count}}</p>
+                        <p></p>
+                    </div>
+                </div>
+
+                <div class="well">
+                    <h4>Отзывы:</h4>
+                    {% for comment in comments%}
+                    <hr>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <strong>{{comment.customer}}</strong>
+                                <span class="pull-right">{{comment.date}}</span>
+                                <p>{{comment.text}}</p>
+                            </div>
+                        </div>
+                        
+                    {%endfor%}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- /.container -->
+
+{% endblock content %}

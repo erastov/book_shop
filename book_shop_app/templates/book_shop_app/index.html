@@ -1,0 +1,86 @@
+{% extends "book_shop_app/base.html" %}
+{% load static %}
+
+{% block header %}{% endblock header %}
+{% block content %}
+{% load widget_tweaks %}
+<style>
+   h4.clip {
+    white-space: nowrap; /* Запрещаем перенос строк */
+    overflow: hidden; /* Обрезаем все, что не помещается в область */
+    text-overflow: ellipsis; /* Добавляем многоточие */
+   }
+  </style>
+
+ <!-- jQuery -->
+    <script src="{% static 'js/jquery.js' %}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-3">
+                <form method="get">
+                <div class="well">
+                    <div class="form-group">
+                      <strong>Название:</strong>
+                      {% render_field values.form.name class="form-control" %}
+                    </div>
+                    <div class="form-group">
+                      <strong>Издательство:</strong>
+                      {% render_field values.form.publishing_house class="form-control" %}
+                    </div>
+                    <div class="form-group">
+                      <strong>Автор:</strong>
+                      {% render_field values.form.author class="form-control" %}
+                    </div>
+                    <div class="form-group">
+                      <strong>Жанр:</strong>
+                      {% render_field values.form.subject class="form-control" %}
+                    </div>
+                    <div class="form-group">
+                      <strong>Год:</strong>
+                      {% render_field values.form.year class="form-control" %}
+                    </div>
+                    <div class="form-group">
+                      <strong>Цена:</strong>
+                      {% render_field values.form.price class="form-control" %}
+                    </div>
+                  <button type="submit" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-search"></span> Поиск
+                  </button>
+                </div>
+              </form>
+            </div>
+
+
+            <div class="col-md-9">
+                <div class="row">
+                    {%for book in values.qs%}
+                    <div class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail">
+                            <br>
+                            <img src="{{ book.image }}" style="width:200px; height:200px;">
+                            <div class="caption">
+                                <h4 class="pull-right">{{book.price}} RUB</h4>
+                                <h4 class="clip"><a href="/book/{{book.id}}">{{book.name}}</a>
+                                </h4>
+                                <p><strong> Жанр: </strong> {{ book.subject }}</p>
+                                <p><strong> Издательство: </strong> {{ book.publishing_house }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {%endfor%}
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock content %}
